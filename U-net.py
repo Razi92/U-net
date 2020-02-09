@@ -1,6 +1,8 @@
+import torch
+import torch.nn as nn
 import torch.nn.functional as F
 
-from .unet_parts import *
+# from .unet_parts import *
 
 
 class UNet(nn.Module):
@@ -34,11 +36,7 @@ class UNet(nn.Module):
         logits = self.outc(x)
         return logits
     
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
-
-
+  
 class DoubleConv(nn.Module):
     """(convolution => [BN] => ReLU) * 2"""
 
