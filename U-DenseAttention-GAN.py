@@ -1,3 +1,31 @@
+import math
+import torch
+from torch import nn
+
+
+class Generator(nn.Module):
+    def __init__(self, scale_factor):
+        upsample_block_num = int(math.log(scale_factor, 2))
+        super(Generator, self).__init__()
+        
+    def forward(self, x):
+        return (torch.tanh(block8) + 1) / 2
+      
+      
+class ResidualBlock(nn.Module):
+    def __init__(self, channels):
+      
+    def forward(self, x):
+        return (x + residual)
+  
+  
+class UpsampleBLock(nn.Module):
+    def __init__(self, in_channels, up_scale):
+      
+    def forward(self, x):
+        return x
+
+######################
 Img
 
 1)
