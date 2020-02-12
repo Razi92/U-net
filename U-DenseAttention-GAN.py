@@ -5,27 +5,73 @@ from torch import nn
 
 class Generator(nn.Module):
     def __init__(self, scale_factor):
-        upsample_block_num = int(math.log(scale_factor, 2))
+        # upsample_block_num = int(math.log(scale_factor, 2)) ??? what is it for?
+
         super(Generator, self).__init__()
-        
+        self.block1 = nn.Sequential(
+		nn.Conv2d(3, 64, kernel_size=9, padding=4),
+            	nn.PReLU()
+        )
+        self.block2 = ResidualBlock(64)
+        self.block3 = ResidualBlock(64)
+        self.block4 = ResidualBlock(64)
+        self.block5 = ResidualBlock(64)
+        self.block6 = ResidualBlock(64)
+        self.block7 = nn.Sequential(
+            nn.Conv2d(64, 64, kernel_size=3, padding=1),
+            nn.BatchNorm2d(64)
+        )
+        block8 = [UpsampleBLock(64, 2) for _ in range(upsample_block_num)]
+        block8.append(nn.Conv2d(64, 3, kernel_size=9, padding=4))
+        self.block8 = nn.Sequential(*block8)
+	
+	self.block1 = InBlock(???)
+	self.block2 = DownBlock(???)
+	self.block3 = DownBlock(???)
+	self.block4 = DownBlock(???)
+	self.block5 = BottomBlock(???)
+	self.block6 = AttentionBlock(???, input1, input2)
+	self.block7 = UpBlock(???, input1, input2)
+	self.block8 = AttentionBlock(???, input1, input2)
+	self.block9 = UpBlock(???, input1, input2)
+	self.block10 = AttentionBlock(???, input1, input2)
+	self.block11 = UpBlock(???, input1, input2)
+	self.block12 = AttentionBlock(???, input1, input2)
+	self.block13 = UpBlock(???, input1, input2)
+	
+
     def forward(self, x):
+        block1 = self.block1(x)
+        block2 = self.block2(block1)
+        block3 = self.block3(block2)
+        block4 = self.block4(block3)
+        block5 = self.block5(block4)
+        block6 = self.block6(block4, block5)
+        block7 = self.block7(block5, block6)
+	block1 = self.block8(block3, block7)
+        block2 = self.block9(block7, block8)
+        block3 = self.block10(block2, block9)
+        block4 = self.bloc11(block9, block10)
+        block5 = self.block12(block1, block11)
+        block6 = self.block13(block11, block12)
+
         return (torch.tanh(block8) + 1) / 2
       
       
-#class BlockConv(nn.Module):
-#   def __init__(self, channels):
+'''class BlockConv(nn.Module):
+   def __init__(self, channels):
         super(BlockConv, self).__init__()
         self.conv1 = nn.Conv2d(channels, channels, kernel_size=3, padding=1)
         self.bn = nn.BatchNorm2d(channels)
         self.relu = nn.ReLU()
         self.conv2 = nn.Conv2d(channels, channels, kernel_size=3, padding=1)
       
-#   def forward(self, x):
+   def forward(self, x):
         feature = self.conv1(x)
         feature = self.bn(feature)
         feature = self.relu(feature)
         feature = self.conv2(feature)
-        return feature
+        return feature'''
 
 
 class InBlock(nn.Module):
@@ -41,6 +87,7 @@ class InBlock(nn.Module):
         x = self.in(x)
         return x
     
+	
 class DownBlock(nn.Module):
     def __init__(self,ch_in,ch_out):
         super(DownBlock,self).__init__()
@@ -55,6 +102,7 @@ class DownBlock(nn.Module):
         x = self.dn(x)
         return x
     
+	
 class BottomBlock(nn.Module):
     def __init__(self,ch_in,ch_out):
         super(BottomBlock,self).__init__()
@@ -112,7 +160,8 @@ class UpBlock(nn.Module):
         feature2 = self.up(feature1+y)
         return feature2
 
-class up_conv(nn.Module):
+
+'''class up_conv(nn.Module):
     def __init__(self,ch_in,ch_out):
         super(up_conv,self).__init__()
         self.up = nn.Sequential(
@@ -124,8 +173,7 @@ class up_conv(nn.Module):
 
     def forward(self,x):
         x = self.up(x)
-        return x
-
+        return x'''
 ######################
 Img
 
