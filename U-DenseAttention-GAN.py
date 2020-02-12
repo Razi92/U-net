@@ -4,27 +4,10 @@ from torch import nn
 
 
 class Generator(nn.Module):
+	
     def __init__(self, scale_factor):
         # upsample_block_num = int(math.log(scale_factor, 2)) ??? what is it for?
-
         super(Generator, self).__init__()
-        self.block1 = nn.Sequential(
-		nn.Conv2d(3, 64, kernel_size=9, padding=4),
-            	nn.PReLU()
-        )
-        self.block2 = ResidualBlock(64)
-        self.block3 = ResidualBlock(64)
-        self.block4 = ResidualBlock(64)
-        self.block5 = ResidualBlock(64)
-        self.block6 = ResidualBlock(64)
-        self.block7 = nn.Sequential(
-            nn.Conv2d(64, 64, kernel_size=3, padding=1),
-            nn.BatchNorm2d(64)
-        )
-        block8 = [UpsampleBLock(64, 2) for _ in range(upsample_block_num)]
-        block8.append(nn.Conv2d(64, 3, kernel_size=9, padding=4))
-        self.block8 = nn.Sequential(*block8)
-	
 	self.block1 = InBlock(???)
 	self.block2 = DownBlock(???)
 	self.block3 = DownBlock(???)
@@ -38,24 +21,23 @@ class Generator(nn.Module):
 	self.block11 = UpBlock(???, input1, input2)
 	self.block12 = AttentionBlock(???, input1, input2)
 	self.block13 = UpBlock(???, input1, input2)
-	
 
     def forward(self, x):
-        block1 = self.block1(x)
-        block2 = self.block2(block1)
-        block3 = self.block3(block2)
-        block4 = self.block4(block3)
-        block5 = self.block5(block4)
-        block6 = self.block6(block4, block5)
-        block7 = self.block7(block5, block6)
-	block1 = self.block8(block3, block7)
-        block2 = self.block9(block7, block8)
-        block3 = self.block10(block2, block9)
-        block4 = self.bloc11(block9, block10)
-        block5 = self.block12(block1, block11)
-        block6 = self.block13(block11, block12)
+        out1 = self.block1(x)
+        out2 = self.block2(out1)
+        out3 = self.block3(out2)
+        out4 = self.block4(out3)
+        out5 = self.block5(out4)
+        out6 = self.block6(out4, out5)
+        out7 = self.block7(out5, out6)
+	out8 = self.block8(out3, out7)
+        out9 = self.block9(out7, out8)
+        out10 = self.block10(out2, out9)
+        out11 = self.block11(out9, out10)
+        out12 = self.block12(out1, out11)
+        out13 = self.block13(out11, out12)
 
-        return (torch.tanh(block8) + 1) / 2
+        return (torch.tanh(out13) + 1) / 2
       
       
 '''class BlockConv(nn.Module):
