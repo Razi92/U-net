@@ -74,3 +74,6 @@ Cn
 7)
 Dense
 Sigmoid
+################
+[Attention U-Net:Learning Where to Look for the Pancreas]
+[U-GAN: Generative Adversarial Networks with UNet for Retinal Vessel Segmentation]
