@@ -53,18 +53,24 @@ Cn,BN,ReLU
 Cn
 
 ###################
-
+1)
 Cn,BN,ReLU
 Cn
+2)
 Cn,BN,ReLU
 Cn
+3)
 Cn,BN,ReLU
 Cn
+4)
 Cn,BN,ReLU
 Cn
+5)
 Cn,BN,ReLU
 Cn
+6)
 Cn,BN,ReLU
 Cn
+7)
 Dense
 Sigmoid
