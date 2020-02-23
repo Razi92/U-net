@@ -40,11 +40,23 @@ class Generator(nn.Module):
         return (torch.tanh(out13) + 1) / 2
       
       
+    def __init__(self, input_channels, output_channels, feature_channels=32,
+                 kernel_size_encoding=3, kernel_size_decoding=3, num_conv_layers=1,
+                 leaky_slope=0.2, use_batch_norm=True, use_dropout=False, dropout_rate=0.2):
 
 class Discriminator(nn.Module):
-    def __init__(self):
+    def __init__(self, input_channels, output_channels):
         super(Discriminator, self).__init__()
+	self.num_input_channels = input_channels
+	self.num_output_channels = output_channels
+	
         self.net = nn.Sequential(
+	    #nn.Conv2d(num_input_channels, 64, kernel_size=3, padding=1),
+            #nn.LeakyReLU(0.2),
+            #nn.Conv2d(64, 64, kernel_size=3, stride=2, padding=1),
+            #nn.BatchNorm2d(64),
+            #nn.LeakyReLU(0.2),
+		
             nn.Conv2d(3, 64, kernel_size=3, padding=1),
             nn.LeakyReLU(0.2),
 
