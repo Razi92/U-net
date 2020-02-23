@@ -116,7 +116,7 @@ class Discriminator(nn.Module):
 
 
 class InBlock(nn.Module):
-    def __init__(self,ch_in,ch_out):
+    def __init__(self, ch_in, ch_out):
         super(InBlock,self).__init__()
         self.in = nn.Sequential(
 		nn.Conv2d(ch_in,ch_out,kernel_size=3,stride=1,padding=1,bias=True),
@@ -130,7 +130,7 @@ class InBlock(nn.Module):
     
 	
 class DownBlock(nn.Module):
-    def __init__(self,ch_in,ch_out):
+    def __init__(self, ch_in, ch_out):
         super(DownBlock,self).__init__()
         self.dn = nn.Sequential(
 		nn.MaxPool2d(kernel_size=2,stride=2)
@@ -145,7 +145,7 @@ class DownBlock(nn.Module):
     
 	
 class BottomBlock(nn.Module):
-    def __init__(self,ch_in,ch_out):
+    def __init__(self, ch_in, ch_out):
         super(BottomBlock,self).__init__()
         self.bot = nn.Sequential(
 		nn.MaxPool2d(kernel_size=2,stride=2)
@@ -159,7 +159,7 @@ class BottomBlock(nn.Module):
   
 
 class AttentionBlock(nn.Module):
-    def __init__(self,F_g,F_l,F_int):
+    def __init__(self, F_g, F_l, F_int):
         super(AttentionBlock,self).__init__()
         self.W_g = nn.Sequential(
             	nn.Conv2d(F_g, F_int, kernel_size=1,stride=1,padding=0,bias=True),
@@ -185,7 +185,7 @@ class AttentionBlock(nn.Module):
     
 	
 class UpBlock(nn.Module):
-    def __init__(self,ch_in,ch_out):
+    def __init__(self, ch_in, ch_out):
         super(UpBlock,self).__init__()
 	self.upsampling = nn.Upsample(scale_factor=2)
         self.up = nn.Sequential(
