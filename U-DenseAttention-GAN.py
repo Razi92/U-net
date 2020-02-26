@@ -119,7 +119,7 @@ class InBlock(nn.Module):
     def __init__(self, ch_in, ch_out):
         super(InBlock,self).__init__()
         self.in = nn.Sequential(
-		nn.Conv2d(ch_in,ch_out,kernel_size=3,stride=1,padding=1,bias=True),
+		nn.Conv2d(ch_in, ch_out, kernel_size=3, stride=1, padding=1, bias=True),
 		nn.BatchNorm2d(ch_out),
 		nn.ReLU(inplace=True),
 		nn.Conv2d(channels, channels, kernel_size=3, padding=1)
@@ -133,8 +133,8 @@ class DownBlock(nn.Module):
     def __init__(self, ch_in, ch_out):
         super(DownBlock,self).__init__()
         self.dn = nn.Sequential(
-		nn.MaxPool2d(kernel_size=2,stride=2)
-		nn.Conv2d(ch_in,ch_out,kernel_size=3,stride=1,padding=1,bias=True),
+		nn.MaxPool2d(kernel_size=2, stride=2)
+		nn.Conv2d(ch_in, ch_out, kernel_size=3, stride=1, padding=1, bias=True),
 		nn.BatchNorm2d(ch_out),
 		nn.ReLU(inplace=True),
 		nn.Conv2d(channels, channels, kernel_size=3, padding=1)
@@ -148,8 +148,8 @@ class BottomBlock(nn.Module):
     def __init__(self, ch_in, ch_out):
         super(BottomBlock,self).__init__()
         self.bot = nn.Sequential(
-		nn.MaxPool2d(kernel_size=2,stride=2)
-		nn.Conv2d(ch_in,ch_out,kernel_size=3,stride=1,padding=1,bias=True),
+		nn.MaxPool2d(kernel_size=2, stride=2)
+		nn.Conv2d(ch_in, ch_out, kernel_size=3, stride=1, padding=1, bias=True),
 		nn.BatchNorm2d(ch_out),
 		nn.ReLU(inplace=True)
         )
@@ -162,15 +162,15 @@ class AttentionBlock(nn.Module):
     def __init__(self, F_g, F_l, F_int):
         super(AttentionBlock,self).__init__()
         self.W_g = nn.Sequential(
-            	nn.Conv2d(F_g, F_int, kernel_size=1,stride=1,padding=0,bias=True),
+            	nn.Conv2d(F_g, F_int, kernel_size=1, stride=1, padding=0, bias=True),
             	nn.BatchNorm2d(F_int)
             )
         self.W_x = nn.Sequential(
-            	nn.Conv2d(F_l, F_int, kernel_size=1,stride=1,padding=0,bias=True),
+            	nn.Conv2d(F_l, F_int, kernel_size=1, stride=1, padding=0, bias=True),
 		nn.BatchNorm2d(F_int)
         )
         self.psi = nn.Sequential(
-           	 nn.Conv2d(F_int, 1, kernel_size=1,stride=1,padding=0,bias=True),
+           	 nn.Conv2d(F_int, 1, kernel_size=1, stride=1, padding=0, bias=True),
            	 nn.BatchNorm2d(1),
            	 nn.Sigmoid()
            	 # resampler ???
@@ -189,7 +189,7 @@ class UpBlock(nn.Module):
         super(UpBlock,self).__init__()
 	self.upsampling = nn.Upsample(scale_factor=2)
         self.up = nn.Sequential(
-		nn.Conv2d(ch_in,ch_out,kernel_size=3,stride=1,padding=1,bias=True),
+		nn.Conv2d(ch_in, ch_out, kernel_size=3, stride=1, padding=1, bias=True),
 		nn.BatchNorm2d(ch_out),
 		nn.ReLU(inplace=True),
 		nn.Conv2d(channels, channels, kernel_size=3, padding=1)
