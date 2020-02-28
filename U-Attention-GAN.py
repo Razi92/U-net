@@ -5,10 +5,15 @@ from torch import nn
 
 class Generator(nn.Module):
 	
-    def __init__(self, scale_factor):
-        # upsample_block_num = int(math.log(scale_factor, 2)) ??? what is it for?
+    def __init__(self, input_channels, output_channels):
+        # upsample_block_num = int(math.log(scale_factor, 2))
+	# ??? Is this necessary?
         super(Generator, self).__init__()
-	self.block1 = InBlock(???)
+	
+	self.ch_in = input_channels
+	self.ch_out = output_channels
+	
+	self.block1 = InBlock(ch_in, ch_out)
 	self.block2 = DownBlock(???)
 	self.block3 = DownBlock(???)
 	self.block4 = DownBlock(???)
@@ -203,7 +208,7 @@ class UpBlock(nn.Module):
         feature = self.relu(feature)
         feature = self.conv2(feature)
         return feature'''
-
+###
 '''class up_conv(nn.Module):
     def __init__(self,ch_in,ch_out):
         super(up_conv,self).__init__()
@@ -213,7 +218,6 @@ class UpBlock(nn.Module):
 		    nn.BatchNorm2d(ch_out),
 			nn.ReLU(inplace=True)
         )
-
     def forward(self,x):
         x = self.up(x)
         return x'''
