@@ -1,7 +1,7 @@
 import math
 import torch
 from torch import nn
-
+is there a problem when the second Conv has the same in and out chanel size?
 
 class Generator(nn.Module):
 	
