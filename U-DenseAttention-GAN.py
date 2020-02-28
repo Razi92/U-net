@@ -125,7 +125,7 @@ class InBlock(nn.Module):
 		nn.Conv2d(ch_out, ch_out, kernel_size=3, padding=1)
 		# ??? is there a problem when the second Conv has the same in and out chanel size?
         )
-    def forward(self,x):
+    def forward(self, x):
         x = self.in(x)
         return x
     
@@ -138,9 +138,10 @@ class DownBlock(nn.Module):
 		nn.Conv2d(ch_in, ch_out, kernel_size=3, stride=1, padding=1, bias=True),
 		nn.BatchNorm2d(ch_out),
 		nn.ReLU(inplace=True),
-		nn.Conv2d(channels, channels, kernel_size=3, padding=1)
+		nn.Conv2d(ch_out, ch_out, kernel_size=3, padding=1)
+		# ??? is there a problem when the second Conv has the same in and out chanel size?
         )
-    def forward(self,x): 
+    def forward(self, x): 
         x = self.dn(x)
         return x
     
@@ -154,7 +155,7 @@ class BottomBlock(nn.Module):
 		nn.BatchNorm2d(ch_out),
 		nn.ReLU(inplace=True)
         )
-    def forward(self,x):
+    def forward(self, x):
         x = self.bot(x)
         return x
   
@@ -171,13 +172,14 @@ class AttentionBlock(nn.Module):
 		nn.BatchNorm2d(F_int)
         )
         self.psi = nn.Sequential(
-           	 nn.Conv2d(F_int, 1, kernel_size=1, stride=1, padding=0, bias=True),
-           	 nn.BatchNorm2d(1),
-           	 nn.Sigmoid()
-           	 # resampler ???
+           	nn.Conv2d(F_int, 1, kernel_size=1, stride=1, padding=0, bias=True),
+           	nn.BatchNorm2d(1),
+           	nn.Sigmoid()
+		# ??? I don't get the dimentions of Conv2D
+           	# resampler ???
         )
         self.relu = nn.ReLU(inplace=True)
-    def forward(self,g,x):
+    def forward(self, g, x):
         g1 = self.W_g(g)
         x1 = self.W_x(x)
         psi = self.relu(g1+x1)
@@ -193,9 +195,9 @@ class UpBlock(nn.Module):
 		nn.Conv2d(ch_in, ch_out, kernel_size=3, stride=1, padding=1, bias=True),
 		nn.BatchNorm2d(ch_out),
 		nn.ReLU(inplace=True),
-		nn.Conv2d(channels, channels, kernel_size=3, padding=1)
+		nn.Conv2d(ch_out, ch_out, kernel_size=3, padding=1)
         )
-    def forward(self,x,y):
+    def forward(self, x, y):
 	feature1 = self.upsampling(x)
 	# concatination of simple add ???
         feature2 = self.up(feature1+y)
