@@ -123,7 +123,7 @@ class InBlock(nn.Module):
 		nn.BatchNorm2d(ch_out),
 		nn.ReLU(inplace=True),
 		nn.Conv2d(ch_out, ch_out, kernel_size=3, padding=1)
-		# ??? is there a problem when the second Conv has the same in and out chanel size?
+		# ??? 
         )
     def forward(self,x):
         x = self.in(x)
