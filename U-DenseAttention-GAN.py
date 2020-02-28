@@ -99,22 +99,6 @@ class Discriminator(nn.Module):
         return torch.sigmoid(self.net(x).view(batch_size))
 
 
-'''class BlockConv(nn.Module):
-   def __init__(self, channels):
-        super(BlockConv, self).__init__()
-        self.conv1 = nn.Conv2d(channels, channels, kernel_size=3, padding=1)
-        self.bn = nn.BatchNorm2d(channels)
-        self.relu = nn.ReLU()
-        self.conv2 = nn.Conv2d(channels, channels, kernel_size=3, padding=1)
-      
-   def forward(self, x):
-        feature = self.conv1(x)
-        feature = self.bn(feature)
-        feature = self.relu(feature)
-        feature = self.conv2(feature)
-        return feature'''
-
-
 class InBlock(nn.Module):
     def __init__(self, ch_in, ch_out):
         super(InBlock,self).__init__()
@@ -204,6 +188,22 @@ class UpBlock(nn.Module):
         return feature2
 
 
+
+'''class BlockConv(nn.Module):
+   def __init__(self, channels):
+        super(BlockConv, self).__init__()
+        self.conv1 = nn.Conv2d(channels, channels, kernel_size=3, padding=1)
+        self.bn = nn.BatchNorm2d(channels)
+        self.relu = nn.ReLU()
+        self.conv2 = nn.Conv2d(channels, channels, kernel_size=3, padding=1)
+      
+   def forward(self, x):
+        feature = self.conv1(x)
+        feature = self.bn(feature)
+        feature = self.relu(feature)
+        feature = self.conv2(feature)
+        return feature'''
+
 '''class up_conv(nn.Module):
     def __init__(self,ch_in,ch_out):
         super(up_conv,self).__init__()
@@ -217,4 +217,3 @@ class UpBlock(nn.Module):
     def forward(self,x):
         x = self.up(x)
         return x'''
-
