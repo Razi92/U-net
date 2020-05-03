@@ -10,6 +10,8 @@ class Generator(nn.Module):
 	# ??? Is this necessary?
         super(Generator, self).__init__()
 	
+	
+	
 	self.ch_in = input_channels
 	self.ch_out = output_channels
 	
